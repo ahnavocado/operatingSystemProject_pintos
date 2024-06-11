@@ -252,6 +252,7 @@ static int try_move(int start, int dest, int step, struct vehicle_info *vi)
 		}
 	}
 	vehicleInCroosroad = 0;
+	if((vi->start=='A'&&vi->position.col==1&&vi->position.row==4)||(vi->start=='B'&&vi->position.col==4&&vi->position.row==5)||(vi->start=='C'&&vi->position.col==5&&vi->position.row==2)||(vi->start=='D'&&vi->position.col==2&&vi->position.row==1)){
 	for (int i = 2; i <= 4; i++){
 		for (int j = 2; j <= 4; j++){
 			if (i == vi->position.row && j == vi->position.col){
@@ -267,11 +268,13 @@ static int try_move(int start, int dest, int step, struct vehicle_info *vi)
 			}
 		}
 	}
-	printf("%d||||||||||%d\n",vi->state,vehicleInCroosroad);
-	if (vehicleInCroosroad >= 3)
+	if (vehicleInCroosroad >= 2)
 	{
 		return -1;
 	}
+	}
+	// printf("%d||||||||||%d\n",vi->state,vehicleInCroosroad);
+	
 	
 	
 	/* lock next position */
@@ -290,6 +293,7 @@ static int try_move(int start, int dest, int step, struct vehicle_info *vi)
 	vi->position = pos_next;
 
 	return 1;
+	
 }
 
 void init_on_mainthread(int thread_cnt)
@@ -328,7 +332,7 @@ void vehicle_loop(void *_vi)
 		}
 		if (res == -1)
 		{
-			break;
+			continue;
 		}
 
 		/* unitstep change! */
