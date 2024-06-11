@@ -203,7 +203,7 @@ const struct position vehicle_path[4][4][12] = {
 					  {-1, -1},
 				  }}};
 int vehicle_cnt;
-
+float step_cnt=0.0;
 int checkVehicleInCrossroad()
 {
 	int vehicleInCroosroad = 0;
@@ -323,6 +323,7 @@ void vehicle_loop(void *_vi)
 		if (res == 1)
 		{
 			step++;
+			
 		}
 
 		/* termination condition. */
@@ -334,6 +335,11 @@ void vehicle_loop(void *_vi)
 		{
 			continue;
 		}
+		
+		// step_cnt=step_cnt+(8/vehicle_cnt);
+		// step_cnt=step_cnt+vehicle_cnt;
+		// print("--------%d",step_cnt);
+		crossroads_step++;
 
 		/* unitstep change! */
 		unitstep_changed();
